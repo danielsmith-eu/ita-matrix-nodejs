@@ -8,8 +8,18 @@ f.search({
     toDays: 14,
     year: 2016,
     month: 8,
-}).then(function(results) {
-    console.log(JSON.stringify(results, null, 2));
+}).then(function(response) {
+    var options = response.searchOptions;
+    try {
+        var cheapestResult = f.cheapest(response.results);
+        console.log(options.fromAirports.join(",") +
+                "-" +
+                options.toAirports.join(",") +
+                " in " + options.year + "/" + options.month + ": " +
+                f.format(cheapestResult));
+    } catch (e) {
+        console.log("Error: ", e);
+    }
 }, function (error) {
     console.log("Error: ", error);
 });

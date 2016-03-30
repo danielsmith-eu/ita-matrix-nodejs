@@ -124,7 +124,7 @@ module.exports = function() {
                         });
                     });
 
-                    resolve(results);
+                    resolve({results: results, searchOptions: searchOptions});
                 });
             }).on("error", function(error) {
                 return reject(error);
@@ -132,7 +132,26 @@ module.exports = function() {
         });
     };
 
+    var cheapest = function(results) {
+        var cheapest = null;
+        var cheapestResult = null;
+        results.map(function (result) {
+            var price = parseInt(result.price.substr(3)) // strips pence also
+            if (cheapest === null || price < cheapest) {
+                cheapest = price;
+                cheapestResult = result;
+            }
+        });
+        return cheapestResult;
+    };
+
+    var format = function(result) {
+        return result.outDate.substr(0,10) + " - " + result.inDate.substr(0,10) + " (" + result.durationDays + " days): " + result.price;
+    };
+
     return {
         search: search,
+        cheapest: cheapest,
+        format: format,
     };
 }

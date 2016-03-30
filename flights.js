@@ -98,33 +98,37 @@ module.exports = function() {
 
                     var results = [];
 
-                    var allResults = body.result[7][1]
-                    allResults.map(function (month) {
-                        // this is each month (i.e. each physical grid), usually 1 or 2
-                        var rows = month[1];
-                        rows.map(function (row) {
-                            // each row in the grid
-                            var days = row[1];
-                            days.map(function (day) {
-                                var result = day[3];
-                                if (result) {
-                                    var flights = result[1];
-                                    flights.map(function (flight) {
-                                        // cheapest flight per day, one
-                                        // per duration, e.g. 12, 13, 14 days length
-                                        results.push({
-                                            price: flight[2],
-                                            durationDays: flight[4],
-                                            outDate: flight[1][3][0][1],
-                                            inDate: flight[1][3][1][1],
+                    try {
+                        var allResults = body.result[7][1]
+                        allResults.map(function (month) {
+                            // this is each month (i.e. each physical grid), usually 1 or 2
+                            var rows = month[1];
+                            rows.map(function (row) {
+                                // each row in the grid
+                                var days = row[1];
+                                days.map(function (day) {
+                                    var result = day[3];
+                                    if (result) {
+                                        var flights = result[1];
+                                        flights.map(function (flight) {
+                                            // cheapest flight per day, one
+                                            // per duration, e.g. 12, 13, 14 days length
+                                            results.push({
+                                                price: flight[2],
+                                                durationDays: flight[4],
+                                                outDate: flight[1][3][0][1],
+                                                inDate: flight[1][3][1][1],
+                                            });
                                         });
-                                    });
-                                }
+                                    }
+                                });
                             });
                         });
-                    });
 
-                    resolve({results: results, searchOptions: searchOptions});
+                        resolve({results: results, searchOptions: searchOptions});
+                    } catch (e) {
+                        reject(e);
+                    }
                 });
             }).on("error", function(error) {
                 return reject(error);

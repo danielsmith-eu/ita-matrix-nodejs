@@ -1,0 +1,24 @@
+{
+    "searches": [
+        {
+            "from": ["DUB", "ARN", "OSL", "CPH"],
+            "to": ["SFO", "OAK", "LAS"],
+            "threshold": 1500
+        },
+        {
+            "from": ["AMS", "BRU", "LUX", "CDG"],
+            "to": ["SFO", "OAK", "LAS"],
+            "threshold": 900
+        },
+        {
+            "from": ["DUB", "ARN", "OSL", "CPH"],
+            "to": ["JFK", "EWR", "LGA"],
+            "threshold": 750
+        },
+        {
+            "from": ["AMS", "BRU", "LUX", "CDG"],
+            "to": ["JFK", "EWR", "LGA"],
+            "threshold": 750
+        }
+    ]
+}

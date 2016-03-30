@@ -119,6 +119,7 @@ module.exports = function() {
                                             // per duration, e.g. 12, 13, 14 days length
                                             results.push({
                                                 price: flight[2],
+                                                priceInt: parseInt(flight[2].substr(3)),
                                                 durationDays: flight[4],
                                                 outDate: flight[1][3][0][1],
                                                 inDate: flight[1][3][1][1],
@@ -141,16 +142,13 @@ module.exports = function() {
 
     var cheapest = function(results) {
         var cheapest = null;
-        var cheapestResult = null;
         for (var i in results) {
             var result = results[i];
-            var price = parseInt(result.price.substr(3)) // strips pence also
-            if (cheapest === null || price < cheapest) {
-                cheapest = price;
-                cheapestResult = result;
+            if (cheapest === null || result.priceInt < cheapest.priceInt) {
+                cheapest = result;
             }
         }
-        return cheapestResult;
+        return cheapest;
     };
 
     var format = function(result) {

@@ -94,23 +94,25 @@ module.exports = function() {
                 response.on("data", function(data) {
                     bodyStr += data;
                 }).on("end", function() {
-                    var body = JSON.parse(bodyStr);
-
-                    var results = [];
-
                     try {
+                        var body = JSON.parse(bodyStr);
+                        var results = [];
                         var allResults = body.result[7][1]
-                        allResults.map(function (month) {
+                        for (var i1 in allResults) {
+                            var month = allResults[i1];
                             // this is each month (i.e. each physical grid), usually 1 or 2
                             var rows = month[1];
-                            rows.map(function (row) {
+                            for (var i2 in rows) {
+                                var row = rows[i2];
                                 // each row in the grid
                                 var days = row[1];
-                                days.map(function (day) {
+                                for (var i3 in days) {
+                                    var day = days[i3];
                                     var result = day[3];
                                     if (result) {
                                         var flights = result[1];
-                                        flights.map(function (flight) {
+                                        for (var i4 in flights) {
+                                            var flight = flights[i4];
                                             // cheapest flight per day, one
                                             // per duration, e.g. 12, 13, 14 days length
                                             results.push({
@@ -119,15 +121,14 @@ module.exports = function() {
                                                 outDate: flight[1][3][0][1],
                                                 inDate: flight[1][3][1][1],
                                             });
-                                        });
+                                        }
                                     }
-                                });
-                            });
-                        });
-
-                        resolve({results: results, searchOptions: searchOptions});
+                                }
+                            }
+                        }
+                        return resolve({results: results, searchOptions: searchOptions});
                     } catch (e) {
-                        reject(e);
+                        return reject(e);
                     }
                 });
             }).on("error", function(error) {
@@ -139,13 +140,14 @@ module.exports = function() {
     var cheapest = function(results) {
         var cheapest = null;
         var cheapestResult = null;
-        results.map(function (result) {
+        for (var i in results) {
+            var result = results[i];
             var price = parseInt(result.price.substr(3)) // strips pence also
             if (cheapest === null || price < cheapest) {
                 cheapest = price;
                 cheapestResult = result;
             }
-        });
+        }
         return cheapestResult;
     };
 

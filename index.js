@@ -6,7 +6,7 @@ var moment = require('moment');
 var f = Flights();
 
 var dates = [];
-var nextMonth = moment().month() + 2; // next month, zero indexed
+var nextMonth = moment().month() + 2; // next month, and fix zero indexing
 if (nextMonth <= 12) {
     for (var month = nextMonth; month <= 12; ++month) {
         // this year
@@ -31,7 +31,7 @@ var doSearch = function(date) {
             try {
                 var options = response.searchOptions;
                 var cheapestResult = f.cheapest(response.results);
-                resolve(options.fromAirports.join(",") +
+                return resolve(options.fromAirports.join(",") +
                         "-" +
                         options.toAirports.join(",") +
                         " in " + options.year + "/" + options.month + ": " +

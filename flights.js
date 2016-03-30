@@ -56,7 +56,9 @@ module.exports = function() {
                         9: 1, // adults?
                         10: 1, // adults?
                         12: "GBP",
-                        13: searchOptions.year + "-" + pad(searchOptions.month+1) + "-01",
+                        13: (searchOptions.month < 12) ?
+                                searchOptions.year + "-" + pad(searchOptions.month+1) + "-01" :
+                                (searchOptions.year+1) + "-01-01",
                         15: "SUNDAY", // needs to be correct???
                         16: 0, // changes limit?? don't know
                         22: "default", // sales city?

@@ -11,5 +11,5 @@ f.search({
 }).then(function(results) {
     console.log(JSON.stringify(results, null, 2));
 }, function (error) {
-    console.log("Error: ", error);   
+    console.log("Error: ", error);
 });

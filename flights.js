@@ -12,9 +12,7 @@ module.exports = function() {
     };
 
     var search = function(searchOptions) {
-        console.log("searchOptions: ", searchOptions);
         return new Promise(function (resolve, reject) {
-            console.log("searchOptions: ", searchOptions);
             var body = {
                 method: "search",
                 params: {
@@ -70,8 +68,6 @@ module.exports = function() {
                 },
             };
 
-            console.log(JSON.stringify(body));
-
             var reqOptions = {
                 url: urlbase,
                 method: "POST",
@@ -99,7 +95,36 @@ module.exports = function() {
                     bodyStr += data;
                 }).on("end", function() {
                     var body = JSON.parse(bodyStr);
-                    resolve(body);
+
+                    var results = [];
+
+                    var allResults = body.result[7][1]
+                    allResults.map(function (month) {
+                        // this is each month (i.e. each physical grid), usually 1 or 2
+                        var rows = month[1];
+                        rows.map(function (row) {
+                            // each row in the grid
+                            var days = row[1];
+                            days.map(function (day) {
+                                var result = day[3];
+                                if (result) {
+                                    var flights = result[1];
+                                    flights.map(function (flight) {
+                                        // cheapest flight per day, one
+                                        // per duration, e.g. 12, 13, 14 days length
+                                        results.push({
+                                            price: flight[2],
+                                            durationDays: flight[4],
+                                            outDate: flight[1][3][0][1],
+                                            inDate: flight[1][3][1][1],
+                                        });
+                                    });
+                                }
+                            });
+                        });
+                    });
+
+                    resolve(results);
                 });
             }).on("error", function(error) {
                 return reject(error);

@@ -3,7 +3,7 @@
         {
             "from": ["DUB", "ARN", "OSL", "CPH"],
             "to": ["SFO", "OAK", "LAS"],
-            "threshold": 1500
+            "threshold": 900
         },
         {
             "from": ["AMS", "BRU", "LUX", "CDG"],

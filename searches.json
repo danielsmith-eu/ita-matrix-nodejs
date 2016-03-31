@@ -5,7 +5,19 @@
     ],
     "searches": [
         {
-            "to": ["SFO", "OAK", "LAS"],
+            "to": ["SAN", "SJC", "SFO", "LAX"],
+            "threshold": 900
+        },
+        {
+            "to": ["MIA", "SAN", "MCO", "FLL", "TPA"],
+            "threshold": 900
+        },
+        {
+            "to": ["JAC", "SLC"],
+            "threshold": 900
+        },
+        {
+            "to": ["SFO", "OAK", "LAS", "PHX"],
             "threshold": 900
         },
         {

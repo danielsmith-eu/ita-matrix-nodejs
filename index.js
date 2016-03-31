@@ -10,7 +10,7 @@ if (args.length != 1) {
     process.exit(1);
 }
 
-var searches = JSON.parse(fs.readFileSync(args[0], 'utf8')).searches;
+var config = JSON.parse(fs.readFileSync(args[0], 'utf8'));
 var f = Flights();
 
 // get month by month search list
@@ -39,7 +39,7 @@ var singleSearch = function(search) {
             //console.log(date);
             return new Promise(function (resolve2, reject2) {
                 f.search({
-                    fromAirports: search.from,
+                    fromAirports: config.from,
                     toAirports: search.to,
                     fromDays: 12,
                     toDays: 14,
@@ -52,7 +52,7 @@ var singleSearch = function(search) {
                         var cheapestResult = f.cheapest(response.results);
                         if (cheapestResult !== null) {
                             //console.log("cheapestResult: ", cheapestResult);
-                            if (cheapestResult.priceInt <= search.threshold) {
+                            if (cheapestResult.priceInt <= search.threshold || config.showAll) {
                                 var formatted = options.fromAirports.join(",") +
                                         "-" +
                                         options.toAirports.join(",") +
@@ -97,8 +97,8 @@ var singleSearch = function(search) {
 }
 
 var execSingleSearch = function () {
-    if (searches.length > 0) {
-        singleSearch(searches.shift()).then(execSingleSearch, function (e) {
+    if (config.searches.length > 0) {
+        singleSearch(config.searches.shift()).then(execSingleSearch, function (e) {
             console.log("Error: ", e);
         });
     } else {

@@ -1,22 +1,14 @@
 {
+    "showAll": true,
+    "from": [
+        "AMS", "ARN", "ATH", "BRU", "BUD", "CAI", "CPH", "DUB", "FCO", "FRA", "HEL", "IST", "LCA", "LIN", "LIS", "MAD", "MLA", "OSL", "PAR", "PRG", "VIE", "WAW"
+    ],
     "searches": [
         {
-            "from": ["DUB", "ARN", "OSL", "CPH"],
             "to": ["SFO", "OAK", "LAS"],
             "threshold": 900
         },
         {
-            "from": ["AMS", "BRU", "LUX", "CDG"],
-            "to": ["SFO", "OAK", "LAS"],
-            "threshold": 900
-        },
-        {
-            "from": ["DUB", "ARN", "OSL", "CPH"],
-            "to": ["JFK", "EWR", "LGA"],
-            "threshold": 750
-        },
-        {
-            "from": ["AMS", "BRU", "LUX", "CDG"],
             "to": ["JFK", "EWR", "LGA"],
             "threshold": 750
         }

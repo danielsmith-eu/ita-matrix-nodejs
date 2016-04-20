@@ -1,27 +1,22 @@
 {
     "showAll": true,
+    "dates": [
+        {"year": 2016, "month": 11},
+        {"year": 2016, "month": 12},
+        {"year": 2017, "month": 1},
+        {"year": 2017, "month": 2},
+        {"year": 2017, "month": 3}
+    ],
     "from": [
-        "AMS", "ARN", "ATH", "BRU", "BUD", "CAI", "CPH", "DUB", "FCO", "FRA", "HEL", "IST", "LCA", "LIN", "LIS", "MAD", "MLA", "OSL", "PAR", "PRG", "VIE", "WAW"
+        "AMS", "ARN", "BCN", "BRU", "BUD", "CPH", "DUB", "FCO", "FRA", "GVA", "HEL", "JER", "LIN", "LIS", "LUX", "MAD", "OSL", "PAR", "PRG", "TXL", "VIE", "ZRH"
     ],
     "searches": [
         {
-            "to": ["SAN", "SJC", "SFO", "LAX"],
+            "to": ["SAN", "SJC", "SFO", "LAX", "MIA", "MCO", "FLL", "TPA", "JAC", "SLC", "OAK", "LAS", "PHX", "WAS"],
             "threshold": 900
         },
         {
-            "to": ["MIA", "SAN", "MCO", "FLL", "TPA"],
-            "threshold": 900
-        },
-        {
-            "to": ["JAC", "SLC"],
-            "threshold": 900
-        },
-        {
-            "to": ["SFO", "OAK", "LAS", "PHX"],
-            "threshold": 900
-        },
-        {
-            "to": ["JFK", "EWR", "LGA"],
+            "to": ["JFK", "EWR", "PHL"],
             "threshold": 750
         }
     ]

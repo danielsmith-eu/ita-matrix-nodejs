@@ -1,8 +1,9 @@
 'use strict';
 var request = require('request');
-var Promise = require('promise');
-module.exports = function() {
-    var urlbase = "http://matrix.itasoftware.com/search";
+var Promises = require('promise');
+module.exports = function(config) {
+    var urlBase = "http://matrix.itasoftware.com/search";
+    var dryRun = config.hasOwnProperty("dryRun") && config.dryRun;
 
     var pad = function(input) {
         if ((input+"").length === 1) {
@@ -12,7 +13,12 @@ module.exports = function() {
     };
 
     var search = function(searchOptions) {
-        return new Promise(function (resolve, reject) {
+        return new Promises(function (resolve, reject) {
+            if (dryRun) {
+                console.log("* Dry run suppressed lookup of: " + JSON.stringify(searchOptions));
+                return resolve({results: []});
+            }
+
             var body = {
                 method: "search",
                 params: {
@@ -71,7 +77,7 @@ module.exports = function() {
             };
 
             var reqOptions = {
-                url: urlbase,
+                url: urlBase,
                 method: "POST",
                 body: JSON.stringify(body),
                 json: false,
@@ -99,22 +105,18 @@ module.exports = function() {
                     try {
                         var body = JSON.parse(bodyStr);
                         var results = [];
-                        var allResults = body.result[7][1]
-                        for (var i1 in allResults) {
-                            var month = allResults[i1];
+                        var allResults = body.result[7][1];
+                        allResults.forEach(function (month) {
                             // this is each month (i.e. each physical grid), usually 1 or 2
                             var rows = month[1];
-                            for (var i2 in rows) {
-                                var row = rows[i2];
+                            rows.forEach(function (row) {
                                 // each row in the grid
                                 var days = row[1];
-                                for (var i3 in days) {
-                                    var day = days[i3];
+                                days.forEach(function (day) {
                                     var result = day[3];
                                     if (result) {
                                         var flights = result[1];
-                                        for (var i4 in flights) {
-                                            var flight = flights[i4];
+                                        flights.forEach(function (flight) {
                                             // cheapest flight per day, one
                                             // per duration, e.g. 12, 13, 14 days length
                                             results.push({
@@ -124,12 +126,12 @@ module.exports = function() {
                                                 outDate: flight[1][3][0][1],
                                                 inDate: flight[1][3][1][1],
                                             });
-                                        }
+                                        });
                                     }
-                                }
-                            }
-                        }
-                        return resolve({results: results, searchOptions: searchOptions});
+                                });
+                            });
+                        });
+                        return resolve({results: results});
                     } catch (e) {
                         return reject(e);
                     }
@@ -142,12 +144,11 @@ module.exports = function() {
 
     var cheapest = function(results) {
         var cheapest = null;
-        for (var i in results) {
-            var result = results[i];
+        results.forEach(function (result) {
             if (cheapest === null || result.priceInt < cheapest.priceInt) {
                 cheapest = result;
             }
-        }
+        });
         return cheapest;
     };
 
@@ -160,4 +161,4 @@ module.exports = function() {
         cheapest: cheapest,
         format: format,
     };
-}
+};

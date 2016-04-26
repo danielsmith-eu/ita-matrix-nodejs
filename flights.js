@@ -149,7 +149,7 @@ module.exports = function(config) {
                         });
                         return resolve({results: results});
                     } catch (e) {
-                        return reject(e);
+                        // do nothing
                     }
                 });
             }).on("error", function(error) {

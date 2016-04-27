@@ -9,6 +9,7 @@ module.exports = function(search, dates, config) {
     var f = new Flights(config);
     return new Promises(function (resolve1, reject1) {
         var doSearch = function (searchPerm) {
+            console.log("Searching for: " + JSON.stringify(searchPerm));
             return new Promises(function (resolve2, reject2) {
                 var searchOptions = {
                     fromAirports: searchPerm.from,
@@ -29,6 +30,7 @@ module.exports = function(search, dates, config) {
                         }
                         return resolve2(null);
                     } catch (e) {
+                        console.trace("handleSearch");
                         return reject2(e);
                     }
                 }, reject2);

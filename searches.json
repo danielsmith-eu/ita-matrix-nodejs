@@ -1,7 +1,7 @@
 {
     "dryRun": false,
-    "showAll": false,
-    "duration": {"from": 12, "to": 14},
+    "showAll": true,
+    "duration": {"from": 0, "to": 2},
     "dates": [
         {"year": 2016, "month": 11},
         {"year": 2016, "month": 12},
@@ -10,15 +10,15 @@
         {"year": 2017, "month": 3}
     ],
     "from": [
-        "AMS", "ARN", "BCN", "BRU", "CPH", "DUB", "FRA", "GVA", "HEL", "JER", "LIS", "LUX", "MAD", "OSL", "PAR", "PRG", "TXL", "VIE", "ZRH"
+        "AMS", "ARN", "BCN", "BRU", "CPH", "DUB", "LUX", "OSL", "TXL"
     ],
     "searches": [
         {
-            "to": ["SAN", "SJC", "SFO", "LAX", "MIA", "MCO", "FLL", "TPA", "JAC", "SLC", "OAK", "LAS", "PHX", "WAS"],
+            "to": ["SFO", "LAX", "MIA", "LAS"],
             "threshold": 900
         },
         {
-            "to": ["JFK", "EWR", "PHL"],
+            "to": ["JFK"],
             "threshold": 750
         }
     ]

@@ -19,6 +19,7 @@ var getDates = function() {
 var execSingleSearch = function () {
     if (config.searches.length > 0) {
         handleSearch(config.searches.shift(), getDates(), config).then(execSingleSearch, function (e) {
+            console.trace("index");
             console.log("Error: ", e);
         });
     } else {

@@ -40,7 +40,7 @@ module.exports = function(search, dates, config) {
         var execSearch = function () {
             if (searchPerms.length > 0) {
                 doSearch(searchPerms.shift()).then(dealWithResult, function (e) {
-                    console.debug("Error in search, continuing with next: ", e);
+                    console.log("Error in search, continuing with next: ", e);
                     execSearch(); // skips dealWithResult, execs next
                 });
             } else {

@@ -37,12 +37,12 @@ module.exports = function(config) {
             var doCall = function() {
                 request(reqOptions).on("response", function (response) {
                     if (response.statusCode !== 200) {
-                        console.debug("Error querying, response is: ", response.statusCode);
+                        console.log("Error querying, response is: ", response.statusCode);
                         if (--attemptsLeft > 0) {
-                            console.debug("..retrying.");
+                            console.log("..retrying.");
                             doCall();
                         } else {
-                            console.debug("..max number of retries attempted, skipping.");
+                            console.log("..max number of retries attempted, skipping.");
                             resolve(nullResults);
                         }
                     }

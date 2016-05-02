@@ -1,6 +1,6 @@
 {
     "dryRun": false,
-    "showAll": true,
+    "showAll": false,
     "duration": {"from": 0, "to": 2},
     "dates": [
         {"year": 2016, "month": 5},

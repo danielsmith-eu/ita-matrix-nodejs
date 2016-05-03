@@ -2,6 +2,8 @@
 var Flights = require('./flights');
 var Promises = require('promise');
 var permute = require('./permute');
+var winston = require('winston');
+
 module.exports = function(search, dates, config) {
     var dryRun = config.hasOwnProperty("dryRun") && config.dryRun;
     var searchPerms = permute(dates, config.from, search.to);
@@ -9,7 +11,7 @@ module.exports = function(search, dates, config) {
     var f = new Flights(config);
     return new Promises(function (resolve1, reject1) {
         var doSearch = function (searchPerm) {
-            console.log("Searching for: " + JSON.stringify(searchPerm));
+            winston.debug("Searching for: " + JSON.stringify(searchPerm));
             return new Promises(function (resolve2, reject2) {
                 var searchOptions = {
                     fromAirports: searchPerm.from,
@@ -30,7 +32,7 @@ module.exports = function(search, dates, config) {
                         }
                         return resolve2(null);
                     } catch (e) {
-                        console.trace("handleSearch");
+                        winston.debug("handleSearch error: " + e + ", " + e.stack);
                         return reject2(e);
                     }
                 }, reject2);
@@ -40,7 +42,7 @@ module.exports = function(search, dates, config) {
         var execSearch = function () {
             if (searchPerms.length > 0) {
                 doSearch(searchPerms.shift()).then(dealWithResult, function (e) {
-                    console.log("Error in search, continuing with next: ", e);
+                    winston.debug("Error in search, continuing with next: " + e);
                     execSearch(); // skips dealWithResult, execs next
                 });
             } else {

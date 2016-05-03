@@ -3,6 +3,8 @@ var request = require('request');
 var Promises = require('promise');
 var parseResults = require('./parseResults');
 var queryBody = require('./queryBody');
+var winston = require('winston');
+
 module.exports = function(config) {
     var urlBase = "http://matrix.itasoftware.com/search";
     var dryRun = config.hasOwnProperty("dryRun") && config.dryRun;
@@ -11,7 +13,7 @@ module.exports = function(config) {
     var search = function(searchOptions) {
         return new Promises(function (resolve, reject) {
             if (dryRun) {
-                console.log("* Dry run suppressed lookup of: " + JSON.stringify(searchOptions));
+                winston.info("* Dry run suppressed lookup of: " + JSON.stringify(searchOptions));
                 return resolve(nullResults);
             }
 
@@ -37,12 +39,12 @@ module.exports = function(config) {
             var doCall = function() {
                 request(reqOptions).on("response", function (response) {
                     if (response.statusCode !== 200) {
-                        console.log("Error querying, response is: ", response.statusCode);
+                        winston.debug("Error querying, response is: ", response.statusCode);
                         if (--attemptsLeft > 0) {
-                            console.log("..retrying.");
+                            winston.debug("..retrying.");
                             doCall();
                         } else {
-                            console.log("..max number of retries attempted, skipping.");
+                            winston.debug("..max number of retries attempted, skipping.");
                             resolve(nullResults);
                         }
                     }

@@ -1,20 +1,20 @@
 {
-    "dryRun": false,
-    "showAll": false,
-    "duration": {"from": 0, "to": 2},
-    "dates": [
-        {"year": 2016, "month": 5},
-        {"year": 2016, "month": 6},
-        {"year": 2016, "month": 7},
-        {"year": 2016, "month": 8}
-    ],
-    "from": [
-        "AMS", "ARN", "BCN", "BRU", "CPH", "DUB", "LUX", "OSL", "TXL"
-    ],
-    "searches": [
-        {
-            "to": ["HNL", "LIH", "OGG", "KOA"],
-            "threshold": 900
-        }
-    ]
+  "dryRun": false,
+  "showAll": false,
+  "duration": {"from": 0, "to": 2},
+  "dates": [
+    {"year": 2016, "month": 5},
+    {"year": 2016, "month": 6},
+    {"year": 2016, "month": 7},
+    {"year": 2016, "month": 8}
+  ],
+  "from": [
+    "AMS", "ARN", "BCN", "BRU", "CPH", "DUB", "LUX", "OSL", "TXL"
+  ],
+  "searches": [
+    {
+      "to": ["HNL", "LIH", "OGG", "KOA"],
+      "threshold": 900
+    }
+  ]
 }

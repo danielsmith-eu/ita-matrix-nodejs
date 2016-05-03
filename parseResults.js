@@ -1,4 +1,6 @@
 'use strict';
+var winston = require('winston');
+
 // parse results from ITA Matrix sparse results format
 // try/catch at every level because there isn't always content
 // and we don't need to error out completely in that case.
@@ -31,23 +33,23 @@ module.exports = function(bodyStr) {
                                             inDate: flight[1][3][1][1],
                                         });
                                     } catch (e) {
-                                        console.trace("Results parsing 1");
+                                        winston.debug("Results parsing 1: " + e + ", " + e.stack);
                                         // do nothing
                                     }
                                 });
                             }
                         } catch (e) {
-                            console.trace("Results parsing 2");
+                            winston.debug("Results parsing 2: " + e + ", " + e.stack);
                             // no nothing
                         }
                     });
                 } catch (e) {
-                    console.trace("Results parsing 3");
+                    winston.debug("Results parsing 3: " + e + ", " + e.stack);
                     // do nothing
                 }
             });
         } catch (e) {
-            console.trace("Results parsing 4");
+            winston.debug("Results parsing 4: " + e + ", " + e.stack);
             // do nothing
         }
     });

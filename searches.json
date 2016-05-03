@@ -1,25 +1,26 @@
 {
-    "dryRun": false,
-    "showAll": false,
-    "duration": {"from": 0, "to": 2},
-    "dates": [
-        {"year": 2016, "month": 11},
-        {"year": 2016, "month": 12},
-        {"year": 2017, "month": 1},
-        {"year": 2017, "month": 2},
-        {"year": 2017, "month": 3}
-    ],
-    "from": [
-        "AMS", "ARN", "BCN", "BRU", "CPH", "DUB", "LUX", "OSL", "TXL"
-    ],
-    "searches": [
-        {
-            "to": ["SFO", "LAX", "MIA", "LAS"],
-            "threshold": 900
-        },
-        {
-            "to": ["JFK"],
-            "threshold": 750
-        }
-    ]
+  "debug": false,
+  "dryRun": false,
+  "showAll": false,
+  "duration": {"from": 0, "to": 2},
+  "dates": [
+    {"year": 2016, "month": 11},
+    {"year": 2016, "month": 12},
+    {"year": 2017, "month": 1},
+    {"year": 2017, "month": 2},
+    {"year": 2017, "month": 3}
+  ],
+  "from": [
+    "AMS", "ARN", "BCN", "BRU", "CPH", "DUB", "LUX", "OSL", "TXL"
+  ],
+  "searches": [
+    {
+      "to": ["SFO", "LAX", "MIA", "LAS"],
+      "threshold": 900
+    },
+    {
+      "to": ["JFK"],
+      "threshold": 750
+    }
+  ]
 }

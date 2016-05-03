@@ -1,8 +1,8 @@
 'use strict';
-var Promises = require('promise');
 var fs = require('fs');
 var clone = require('clone');
 var handleSearch = require('./handleSearch');
+var winston = require('winston');
 
 var args = process.argv.slice(2);
 if (args.length !== 1) {
@@ -11,6 +11,10 @@ if (args.length !== 1) {
 }
 
 var config = JSON.parse(fs.readFileSync(args[0], 'utf8'));
+if (config.hasOwnProperty("debug") && config.debug) { // optional
+    winston.level = "debug";
+}
+
 
 var getDates = function() {
     return clone(config.dates);
@@ -19,11 +23,10 @@ var getDates = function() {
 var execSingleSearch = function () {
     if (config.searches.length > 0) {
         handleSearch(config.searches.shift(), getDates(), config).then(execSingleSearch, function (e) {
-            console.trace("index");
-            console.log("Error: ", e);
+            winston.error("Error: " + e);
         });
     } else {
-        //console.log("Finished cleanly.");
+        winston.debug("Finished cleanly.");
     }
 };
 execSingleSearch();
